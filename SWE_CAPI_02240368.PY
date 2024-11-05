@@ -23,45 +23,36 @@
 
 #cleaning_dictionary 
 def clean_dictionary(input_file, output_file):
-    cleaned_words = []
-    with open(input_file, "r", encoding = "utf-8") as file:
-        for line in file:
-            words = line.split()
-            if words:
-                dzongkha_word = words[0]
-                cleaned_words.append(dzongkha_word)
-    with open(output_file, "w", encoding = "utf-8") as file:
+    with open(input_file, "r", encoding="utf-8") as f:
+        cleaned_words = [line.split()[0] for line in f if line.split()]
+    with open(output_file, "w", encoding="utf-8") as f:
         for word in cleaned_words:
-            file.write(word + "\n")
-        print(f"cleaned words saved to {output_file}")
+            f.write(word + "\n")
+    print(f"Cleaned words saved to {output_file}")
 input_file = "dictionary.txt"
 output_file = "cleaned_dictionary.txt"
 clean_dictionary(input_file, output_file)
 #converter
-import docx2txt as d2t
-
+from docx import Document
+def converter(docx_file, txt_file):
+    doc = Document(docx_file)
+    with open(txt_file, 'w', encoding='utf-8') as f:
+        for para in doc.paragraphs:
+            f.write(para.text + '\n')
 docx_file = 'dictionary.docx'
 txt_file = 'dictionary.txt'
-
-docx = d2t. process(docx_file)
-
-file=open(txt_file, 'w', encoding='utf-8')
-file.write(docx)
-file.close()
+converter(docx_file, txt_file)
+print("The file has been converted")
 
 print("file converted")
 #Spell checker
 import re
-def extract_words(text):
-  
+def checker(text):
     words = re.findall(r'[\u0F00-\u0FFF]+', text)
-    return set(words)  
-with open("368.txt", encoding="utf-8") as file:
-    content1 = file.read()
-    word1 = extract_words(content1)
-with open("cleaned_dictionary.txt", encoding="utf-8") as file:
-    content2 = file.read()
-    word2 =extract_words(content2)
-unique_to_file1 = word1.difference(word2)  
-for word in unique_to_file1:
+    unique_word = {word for word in words}  
+    return unique_word
+words = checker(open("368.txt", encoding="utf-8").read())
+words1 = checker(open("cleaned_dictionary.txt", encoding="utf-8").read())
+unique_file = words - words1
+for word in unique_file:
     print(f"The word '{word}' from this sentence is incorrect.")
