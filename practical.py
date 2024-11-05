@@ -1,12 +1,10 @@
-import docx2txt as d2t
-
+from docx import Document
+def converter(docx_file, txt_file):
+    doc = Document(docx_file)
+    with open(txt_file, 'w', encoding='utf-8') as f:
+        for para in doc.paragraphs:
+            f.write(para.text + '\n')
 docx_file = 'dictionary.docx'
 txt_file = 'dictionary.txt'
-
-docx = d2t. process(docx_file)
-
-file=open(txt_file, 'w', encoding='utf-8')
-file.write(docx)
-file.close()
-
-print("file converted")
+converter(docx_file, txt_file)
+print("The file has been converted")

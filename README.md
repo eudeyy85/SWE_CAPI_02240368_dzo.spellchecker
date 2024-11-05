@@ -42,6 +42,7 @@ The code provides clear feedback by printing a message upon successful completio
 ## Future Improvements
 -I now know how to correct the error and auto correct using the code which can be use in future need.
 -Can generate dzongkha text using the cleaned dictionary ensuring grammatical correctness.
+-Learned the splits the line and to writes each word followed by a newline, so taht each word appears on a new line in the output file.
 
 ## References
 -https://gemini.google.com/app/2e5f55efa23440de
