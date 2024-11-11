@@ -43,8 +43,6 @@ docx_file = 'dictionary.docx'
 txt_file = 'dictionary.txt'
 converter(docx_file, txt_file)
 print("The file has been converted")
-
-print("file converted")
 #Spell checker
 import re
 def checker(text):
